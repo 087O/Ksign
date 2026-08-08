@@ -1,13 +1,20 @@
-# Code of Conduct
+# قواعد السلوك
 
-Welcome to Ksign's Code of Conduct! This document outlines essential guidelines and important information regarding interacting with the repository.
+مرحبًا بكم في مستودع Ksign! توضح هذه الوثيقة الإرشادات المتوقعة عند التفاعل مع المشروع.
 
-## Rules 
-- **Be respectful** when interacting in issues or us in general.
-  - This includes any comments that may be harmful to a specific individual or group of people.
-  - This includes different opinions.
-- **Give good criticsm!** Most issues and pull-requests will be noticed, if some are actually required we will do something about it.
-- **No piracy**.
-- **No trolling or spam**.
+## القواعد
 
-Multiple violations of these rules could end up you being restricted from the repository.
+- تحلّوا بالاحترام عند المشاركة في القضايا (issues)، طلبات السحب (pull requests)، والمناقشات.
+  - تجنّبوا التعليقات التي قد تكون مسيئة لشخص أو مجموعة.
+  - احترموا الاختلاف في الرأي وعبّروا عنه بشكل بنّاء.
+- قدّموا نقدًا بنّاءً وموضوعيًا يهدف لتحسين المشروع.
+- الامتناع عن أي أعمال قرصنة أو مشاركة محتوى مقرصن.
+- الامتناع عن الترويج أو نشر الرسائل المزعجة (spam) أو السلوك التخريبي.
+
+## التبعات
+
+الانتهاكات المتكررة لهذه القواعد قد تؤدي إلى تقييد الوصول أو منع المساهمة في المشروع.
+
+## الإبلاغ
+
+للإبلاغ عن انتهاك، افتحوا Issue جديدة مع تسمية `code-of-conduct` أو تواصلوا مع مشرفي المستودع مباشرة.
