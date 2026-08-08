@@ -69,7 +69,11 @@ struct FeatherApp: App {
 			}
 			
             if url.pathExtension == "ksign" {
-                UIAlertController.showAlertWithOk(title: .localized("Error"), message: .localized("Ksign certificate file (.ksign) is now unsupported from v1.5.1, please refer to use .p12 and .mobileprovision instead."))
+                // تم إصلاح النص والقوس هنا
+                UIAlertController.showAlertWithOk(
+                    title: .localized("Error"),
+                    message: .localized("Ksign certificate file (.ksign) is unsupported since v1.5.1. Please use .p12 and .mobileprovision files instead.")
+                )
             }
 		}
 	}
@@ -229,7 +233,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                 Logger.misc.error("Failed to list signing-assets: \(error)")
             }
         }
-
+    
 #if SERVER
     private func _downloadSSLCertificates() {
         let serverURL = "https://backloop.dev/pack.json"
