@@ -1,26 +1,48 @@
 workflows:
   ios-swiftui-build:
-    name: Swift Store IPA
+    name: Swift Store Unsigned IPA
     max_build_duration: 60
     instance_type: mac_mini_m1
     environment:
       xcode: latest
     scripts:
-      - name: Build Archive
+      - name: Prepare
         script: |
+          set -e
+          echo "Cleaning Derived Data"
+          rm -rf ~/Library/Developer/Xcode/DerivedData/*
+          echo "Resolving Swift packages"
+          xcodebuild -project Ksign.xcodeproj -resolvePackageDependencies
+      - name: Build archive (unsigned)
+        script: |
+          set -e
+          DERIVED_DATA_PATH="$CM_BUILD_DIR/DerivedData"
+          mkdir -p "$DERIVED_DATA_PATH"
           xcodebuild archive \
             -project Ksign.xcodeproj \
             -scheme Ksign \
-            -sdk iphoneos \
-            -archivePath $CM_BUILD_DIR/Ksign.xcarchive \
             -configuration Release \
+            -sdk iphoneos \
+            -archivePath "$CM_BUILD_DIR/Ksign.xcarchive" \
+            -derivedDataPath "$DERIVED_DATA_PATH" \
             CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO
-      - name: Export IPA
+            CODE_SIGNING_REQUIRED=NO \
+            DEVELOPMENT_TEAM=""
+      - name: Export unsigned .ipa (zip Payload)
         script: |
-          mkdir -p $CM_BUILD_DIR/Payload
-          cp -r $CM_BUILD_DIR/Ksign.xcarchive/Products/Applications/*.app $CM_BUILD_DIR/Payload/
-          cd $CM_BUILD_DIR
-          zip -r SwiftStore.ipa Payload
+          set -e
+          mkdir -p "$CM_BUILD_DIR/Payload"
+          cp -R "$CM_BUILD_DIR/Ksign.xcarchive/Products/Applications/"*.app "$CM_BUILD_DIR/Payload/"
+          cd "$CM_BUILD_DIR"
+          if [ -d Payload ]; then
+            /usr/bin/zip -r "SwiftStore-unsigned.ipa" Payload
+            echo "IPA created at $CM_BUILD_DIR/SwiftStore-unsigned.ipa"
+          else
+            echo "Payload directory not found; archive may have failed"
+            exit 1
+          fi
     artifacts:
-      - "*.ipa"
+      - "$CM_BUILD_DIR/SwiftStore-unsigned.ipa"
+    cache:
+      - ~/Library/Developer/Xcode/DerivedData
+      - ~/.swiftpm
