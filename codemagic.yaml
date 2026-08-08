@@ -1,0 +1,30 @@
+workflows:
+  ios-swiftui-build:
+    name: Swift Store Unsigned IPA
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      xcode: latest
+    scripts:
+      - name: Build Archive
+        script: |
+          set -e
+          xcodebuild archive \
+            -project Ksign.xcodeproj \
+            -scheme Ksign \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath "$CM_BUILD_DIR/Ksign.xcarchive" \
+            -clonedSourcePackagesDirPath "$CM_BUILD_DIR/SPM" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            DEVELOPMENT_TEAM=""
+      - name: Export Unsigned IPA
+        script: |
+          set -e
+          mkdir -p "$CM_BUILD_DIR/Payload"
+          cp -R "$CM_BUILD_DIR/Ksign.xcarchive/Products/Applications/"*.app "$CM_BUILD_DIR/Payload/"
+          cd "$CM_BUILD_DIR"
+          zip -r "SwiftStore-unsigned.ipa" Payload
+    artifacts:
+      - "$CM_BUILD_DIR/SwiftStore-unsigned.ipa"
