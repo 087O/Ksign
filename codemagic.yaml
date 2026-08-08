@@ -44,5 +44,6 @@ workflows:
     artifacts:
       - "$CM_BUILD_DIR/SwiftStore-unsigned.ipa"
     cache:
-      - ~/Library/Developer/Xcode/DerivedData
-      - ~/.swiftpm
+      cache_paths:
+        - ~/Library/Developer/Xcode/DerivedData
+        - ~/.swiftpm
