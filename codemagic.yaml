@@ -25,8 +25,9 @@ workflows:
         script: |
           set -e
           mkdir -p "$CM_BUILD_DIR/Payload"
-          cp -R "$CM_BUILD_DIR/Ksign.xcarchive/Products/Applications/"*.app "$CM_BUILD_DIR/Payload/"
+          cp -R "$CM_BUILD_DIR/Ksign.xcarchive/Products/Applications"/*.app "$CM_BUILD_DIR/Payload/"
           cd "$CM_BUILD_DIR"
-          zip -r "SwiftStore-unsigned.ipa" Payload
+          zip -r "Ksign-unsigned.ipa" Payload
+          ls -la "$CM_BUILD_DIR/"*.ipa
     artifacts:
-      - "$CM_BUILD_DIR/SwiftStore-unsigned.ipa"
+      - "$CM_BUILD_DIR/Ksign-unsigned.ipa"
