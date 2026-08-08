@@ -1,0 +1,33 @@
+workflows:
+  ios-swiftui-build:
+    name: Swift Store IPA
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Install Dependencies
+        script: |
+          pod install || true
+      - name: Build App
+        script: |
+          xcodebuild clean build \
+            -workspace Ksign.xcworkspace \
+            -scheme Ksign \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            OBJROOT=$CM_BUILD_DIR/build \
+            SYMROOT=$CM_BUILD_DIR/build
+      - name: Create IPA Package
+        script: |
+          cd $CM_BUILD_DIR/build/Release-iphoneos
+          mkdir Payload
+          cp -r *.app Payload/
+          zip -r SwiftStore.ipa Payload
+          mv SwiftStore.ipa $CM_BUILD_DIR/
+    artifacts:
+      - "*.ipa"
