@@ -49,7 +49,45 @@ struct AboutNyaView: View {
             .listRowBackground(EmptyView())
 			
 			NBSection(.localized("Credits")) {
-				_credit(name: "Nyasami", desc: "Developer", github: "nyasami")
+				_credit(name: "Abdulbasit Khudair", desc: "Developer", github: "087e", icon: "globe")
+			}
+			
+			NBSection(.localized("Connect")) {
+				Button(action: { UIApplication.open("https://github.com/087e") }) {
+					HStack {
+						Image(systemName: "link.circle.fill")
+							.foregroundStyle(.accent)
+						Text("GitHub: 087e")
+						Spacer()
+						Image(systemName: "arrow.up.right")
+							.foregroundStyle(.secondary)
+					}
+				}
+				.foregroundStyle(.primary)
+				
+				Button(action: { UIApplication.open("https://t.me/ipafilesfor") }) {
+					HStack {
+						Image(systemName: "paperplane.fill")
+							.foregroundStyle(.accent)
+						Text("Telegram Channel")
+						Spacer()
+						Image(systemName: "arrow.up.right")
+							.foregroundStyle(.secondary)
+					}
+				}
+				.foregroundStyle(.primary)
+				
+				Button(action: { UIApplication.open("https://www.tiktok.com/@087.n") }) {
+					HStack {
+						Image(systemName: "music.note")
+							.foregroundStyle(.accent)
+						Text("TikTok Profile")
+						Spacer()
+						Image(systemName: "arrow.up.right")
+							.foregroundStyle(.secondary)
+					}
+				}
+				.foregroundStyle(.primary)
 			}
 			
 			NBSection("Special thanks!") {
@@ -85,8 +123,8 @@ struct AboutNyaView: View {
 	
 	private func _showPatchNotes() {
 		UIAlertController.showAlertWithOk(
-			title: .localized("From Nyasami, Version \(Bundle.main.version)"),
-			message: .localized("This version introduces:\n\n- Optimization for iOS 26\n- Bulk installation support for multiple apps\n- idevice installation method\n- Custom injection path & support for injecting tweaks into App Extensions\n- Support for .bundle files as tweaks (copied directly into the app bundle)\n- rsd support\n- Fix empty display name handling in Info.plist\n- Fix URL scheme issues for Ksign\n- Fix codesigning errors on specific apps with unusual bundle structures\n- Localization updates for German, Russian, Arabic, and Vietnamese"),
+			title: .localized("From Swift Store, Version \(Bundle.main.version)"),
+			message: .localized("This version introduces:\n\n- Optimization for iOS 26\n- Bulk installation support for multiple apps\n- idevice installation method\n- Custom injection path & support for advanced features"),
 			isCancel: true,
 			thankYou: true
 		)
@@ -99,7 +137,8 @@ extension AboutNyaView {
 	private func _credit(
 		name: String?,
 		desc: String?,
-		github: String
+		github: String,
+		icon: String = "person.circle.fill"
 	) -> some View {
 		FRIconCellView(
 			title: name ?? github,
