@@ -27,18 +27,12 @@ struct SettingsView: View {
         return _certificates[_storedSelectedCert]
     }
     
-    
-	private let _donationsUrl = "https://github.com/sponsors/nyasami"
-	private let _githubUrl = "https://github.com/nyasami/ksign"
+    private let _githubUrl = "https://github.com/087e/Ksign"
     private let _discordUrl = "https://discord.gg/sfbZfQzVdQ"
 	// MARK: Body
     var body: some View {
 		NBNavigationView(.localized("Settings")) {
 			Form {
-//				#if !NIGHTLY && !DEBUG
-				SettingsDonationCellView(site: _donationsUrl)
-//				#endif
-				
 				_feedback()
 				
 				Section {
@@ -108,9 +102,6 @@ extension SettingsView {
 			NavigationLink(destination: AboutNyaView()) {
                 Label(.localized("About"), systemImage: "info.circle")
             }
-			Button(.localized("Telegram Channel"), systemImage: "paperplane.circle") {
-				UIApplication.open("https://t.me/KhoinDNS")
-			}
 			Button(.localized("GitHub Repository"), systemImage: "safari") {
 				UIApplication.open(_githubUrl)
 			}
